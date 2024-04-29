@@ -53,23 +53,7 @@ int main()
         }
         printf("%d:client has connect!!!\n",sc);
 
-        ssize_t size = 0;
-        char buffer[1024];
-        char ack[] = "server recept!";
-        while (1)
-        {
-            size = recv(sc,buffer,1024,0);
-            printf("server has recv:%s!!\n",buffer);
-            if (size == 0)
-            {
-                printf("server error!!!\n");
-                return ;
-            }
-        
-            sprintf(buffer,"%d bytes altogether\n",size);
-            send(sc,buffer,strlen(buffer)+1,0);
-        }
-        
+        process_server(sc);
     }
     
     close(sc);

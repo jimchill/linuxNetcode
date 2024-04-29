@@ -24,20 +24,7 @@ int main()
 
     connect(sc,(struct sockaddr*)&server_addr,sizeof(struct sockaddr));
     printf("server has connect!\n");
-    //process_client(sc);
-    ssize_t size = 0;
-    char buffer[1024];
-    char exitword[] = "quit";
-    while (1)
-    {
-        printf("waiting \n");  
-        send(sc,exitword,strlen(exitword) + 1,0);
-        printf("client send!\n");
-        size = recv(sc,buffer,1024,0);
-        printf("server say:%s",buffer);
-        sleep(4);
-    }
-
+    process_client(sc);
     close(sc);
     return 0;
 }

@@ -9,22 +9,14 @@ void process_client(int s)
     char exitword[] = "quit";
     while (1)
     {
-        printf("waiting \n");
-        // if (!strcmp(buffer,exitword))
-        // {
-        //     break;
-        // }
-        
-        size = read(0,exitword,1024);
-        printf("read done\n");
-        if (size > 0)
-        {
-            send(s,exitword,size,0);
-            printf("client send!\n");
-            size = recv(s,buffer,1024,0);
-        }
+        printf("waiting \n");  
+        send(s,exitword,strlen(exitword) + 1,0);
+        printf("client send!\n");
+        size = recv(s,buffer,1024,0);
+        printf("server say:%s",buffer);
         sleep(4);
     }
+
 }
 
 void process_server(int s)
@@ -35,12 +27,14 @@ void process_server(int s)
     while (1)
     {
         size = recv(s,buffer,1024,0);
+        printf("server has recv:%s!!\n",buffer);
         if (size == 0)
         {
+            printf("server error!!!\n");
             return ;
         }
-
+    
         sprintf(buffer,"%d bytes altogether\n",size);
-        send(s,ack,strlen(ack)+1,0);
+        send(s,buffer,strlen(buffer)+1,0);
     }
 }
