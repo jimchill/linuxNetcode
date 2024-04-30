@@ -1,5 +1,5 @@
 client:client.o process.o
-	gcc -o client client.o process.o
+	gcc -o client client.o process.o -lpthread
 client.o:client.c
 	gcc -c client.c -o client.o
 process.o:process.c
